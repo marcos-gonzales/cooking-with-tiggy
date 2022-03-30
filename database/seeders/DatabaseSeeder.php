@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Category;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        \App\Models\User::factory(50)->create();
+        Category::create(['name' => 'Italian']);
+        Category::create(['name' => 'American']);
+        Category::create(['name' => 'Mexican']);
+        Category::create(['name' => 'Peruvian']);
+        Category::create(['name' => 'Thai']);
+        Category::create(['name' => 'Chinese']);
+        Category::create(['name' => 'BBQ']);
+        Category::create(['name' => 'Indian']);
+    }
+}
