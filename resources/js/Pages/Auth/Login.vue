@@ -3,49 +3,53 @@
         <title>Login</title>
         <meta name="login" content="the login page"/>
     </head>
-    <div class="border rounded bg-slate-100 max-w-lg mx-auto mt-4">
 
-        <h1 class="text-center text-xl mt-2 text-amber-400">Login</h1>
-
-        <form
-            class="flex flex-col  mx-auto p-4 h-52"
-            @submit.prevent="login"
-        >
-            <div class="flex flex-col p-2">
-                <label for="email" id="email">Email</label>
-                <input
-                    class="border rounded px-1"
-                    v-model="email"
-                    type="text"
-                    name="name"
-                    placeholder="youremail@example.org"
-                />
-            </div>
-            <div v-if="errors.email" class="text-red-500" v-text="errors.email"></div>
-
-            <div class="flex flex-col p-2">
-                <label for="password" id="password">password</label>
-                <input
-                    class="border rounded px-1"
-                    v-model="password"
-                    type="password"
-                    name="name"
-                    placeholder="your password"
-                />
-            </div>
-            <div v-if="errors.password >= 1" class="text-red-500" v-text="errors.password"></div>
-            <button
-                class="border bg-blue-300 my-4 rounded mx-auto"
-                style="width: 50% !important"
+    <h1 class="text-center text-amber-200 text-2xl mt-4">Login</h1>
+    <div class="grid grid-cols-2">
+        <div>
+            <img src="images/tiggy/tiggy2.jpeg" alt="tiggy_poncho">
+        </div>
+        <div class="border rounded bg-slate-100 mx-auto w-full">
+            <form
+                class="flex flex-col  mx-auto p-4 h-52"
+                @submit.prevent="login"
             >
-                Submit
-            </button>
-        </form>
+                <div class="flex flex-col p-2">
+                    <label for="email" id="email">Email</label>
+                    <input
+                        class="border rounded px-1"
+                        v-model="email"
+                        type="text"
+                        name="name"
+                        placeholder="youremail@example.org"
+                    />
+                </div>
+                <div v-if="errors.email" class="text-red-500" v-text="errors.email"></div>
 
-        <p class="text-center text-slate-300 pb-4 mt-2">
-            Don't have an account?
-            <Link class="text-blue-500 underline" href="/register">Register</Link>
-        </p>
+                <div class="flex flex-col p-2">
+                    <label for="password" id="password">password</label>
+                    <input
+                        class="border rounded px-1"
+                        v-model="password"
+                        type="password"
+                        name="name"
+                        placeholder="your password"
+                    />
+                </div>
+                <div v-if="errors.password >= 1" class="text-red-500" v-text="errors.password"></div>
+                <button
+                    class="border bg-blue-300 my-4 rounded mx-auto"
+                    style="width: 50% !important"
+                >
+                    Submit
+                </button>
+            </form>
+
+            <p class="text-center text-slate-300 pb-4 mt-2">
+                Don't have an account?
+                <Link class="text-blue-500 underline" href="/register">Register</Link>
+            </p>
+        </div>
     </div>
 </template>
 

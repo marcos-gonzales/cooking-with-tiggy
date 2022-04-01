@@ -27,7 +27,7 @@
                         }}</span>
                 <img
                     @click="personIndex($event, recipe.user)"
-                    :src="'http://localhost:8000/' + recipe.user.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
+                    :src="recipe.user.file_path"
                     class="inline object-cover w-12 h-12 mr-2 rounded-full cursor-pointer"
                 />
             </div>
@@ -35,7 +35,7 @@
         <div class="grid grid-cols-1">
             <div>
                 <img
-                    :src="'http://localhost:8000/' + recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
+                    :src="recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
                     :alt="recipe.name"
                     class="cursor-pointer object-cover"/>
             </div>

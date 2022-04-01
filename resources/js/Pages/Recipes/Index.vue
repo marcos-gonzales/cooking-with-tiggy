@@ -47,9 +47,7 @@
                         }}</span>
                     <img
                         @click="personIndex($event, recipe.user)"
-                        :src="
-                            recipe.user.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')
-                        "
+                        :src="recipe.user.file_path.startsWith('/home') ? recie.user.file_path.replace() : ''"
                         class="inline object-cover w-12 h-12 mr-2 rounded-full cursor-pointer"
                     />
                 </div>
@@ -57,7 +55,7 @@
             <div class="grid grid-cols-3 gap-x-1.5">
                 <div class="col-span-2">
                     <img @click="show(recipe.id)"
-                         :src="recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
+                         :src="recipe.file_path"
                          style="height: 350px;"
                          class="cursor-pointer object-cover"/>
                 </div>
@@ -158,3 +156,4 @@ export default {
 </script>
 
 <style></style>
+
