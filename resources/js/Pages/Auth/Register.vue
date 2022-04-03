@@ -3,8 +3,7 @@
         <title>Register</title>
         <meta name="register" content="register to start cooking new and exiting recipes"/>
     </head>
-    <h1 class="text-center text-amber-300 text-2xl mb-4">Register for an account</h1>
-    <div class="grid grid-cols-2">
+    <div class="grid cols-1 sm:grid-cols-2">
         <div>
             <img src="images/tiggy/tiggy.jpeg" alt="tiggy">
         </div>

@@ -1,20 +1,14 @@
 <template>
-    <head>
-        <title>Login</title>
-        <meta name="login" content="the login page"/>
-    </head>
-
-    <h1 class="text-center text-amber-200 text-2xl mt-4">Login</h1>
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2">
         <div>
             <img src="images/tiggy/tiggy2.jpeg" alt="tiggy_poncho">
         </div>
-        <div class="border rounded bg-slate-100 mx-auto w-full">
+        <div class="border rounded bg-slate-100 w-full">
             <form
                 class="flex flex-col  mx-auto p-4 h-52"
                 @submit.prevent="login"
             >
-                <div class="flex flex-col p-2">
+                <div class="flex flex-col p-2 h-72">
                     <label for="email" id="email">Email</label>
                     <input
                         class="border rounded px-1"

@@ -175,10 +175,10 @@ class RecipeController extends Controller
     public
     function recipeLikes()
     {
-        $recipes = Rating::with('recipe')->paginate();
+        $group = [];
+        $recipes = Rating::with('recipe')->groupBy('recipe_id')->select('recipe_id')->count();
+        dd($recipes);
 
-        return Inertia::render('Recipes/Categories', [
-            'recipes' => $recipes
-        ]);
+        return Inertia::render('Recipes/Categories', ['recipes' => $recipes]);
     }
 }

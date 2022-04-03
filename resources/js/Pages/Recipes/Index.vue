@@ -4,17 +4,19 @@
             <h1 class="text-center font-bold text-2xl underline text-amber-200">
                 Recipes
             </h1>
-            <input
-                class="border rounded pl-1"
-                v-model="search"
-                type="text"
-                name="search"
-                placeholder="search..."
-                @keyup="searchRecipe"
-            />
-            <Link href="/recipes/create" class="text-sm text-sky-300 underline"
-            >create a new recipe
-            </Link>
+            <div>
+                <input
+                    class="border rounded pl-1"
+                    v-model="search"
+                    type="text"
+                    name="search"
+                    placeholder="search..."
+                    @keyup="searchRecipe"
+                />
+                <Link href="/recipes/create" class="text-sm text-sky-300 underline"
+                >create a new recipe
+                </Link>
+            </div>
         </div>
 
         <div

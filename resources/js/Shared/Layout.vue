@@ -6,7 +6,7 @@
                 </Link>
                 <span v-if="$page.props.user.username" class="ml-8">Welcome back, <span
                     class="text-amber-200 font-bold">{{ $page.props.user.username }}</span></span></li>
-            <li>
+            <li v-if="$page.props.user.username">
                 <select v-model="categoryChosen" name="categories" id="categories"
                         class="bg-cyan-500 rounded px-2 cursor-pointer" @change="filterByCategory(categoryChosen)">
                     <option
@@ -19,12 +19,16 @@
                     </option>
                 </select>
             </li>
-            <li v-if="$page.props.user.username">
-                <Link class="hover:text-slate-500" href="/logout" method="post">Logout</Link>
+            <li v-if="!$page.props.user.username">
+                <Link href="register" class="text-amber-300 hover:text-white">Register</Link>
             </li>
             <li v-else>
-                <Link class="hover:text-slate-500" href="/login">Login</Link>
+                <Link class="hover:text-slate-500" href="/logout" method="post">Logout</Link>
             </li>
+            <li v-if="!$page.props.user.username">
+                <Link href="login" class="text-white hover:text-slate-500">Login</Link>
+            </li>
+
         </ul>
     </nav>
 
