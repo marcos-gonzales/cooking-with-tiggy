@@ -13,7 +13,7 @@
                     placeholder="search..."
                     @keyup="searchRecipe"
                 />
-                <Link href="/recipes/create" class="text-sm text-sky-300 underline"
+                <Link v-if="$page.props.user.username" href="/recipes/create" class="text-sm text-sky-300 underline"
                 >create a new recipe
                 </Link>
             </div>
@@ -49,15 +49,15 @@
                         }}</span>
                     <img
                         @click="personIndex($event, recipe.user)"
-                        :src="recipe.user.file_path.startsWith('/home') ? recie.user.file_path.replace() : ''"
+                        :src="recipe.user.file_path.startsWith('/Users') ? recipe.user.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '/') : recipe.user.file_path.replace('public', 'storage')"
                         class="inline object-cover w-12 h-12 mr-2 rounded-full cursor-pointer"
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-x-1.5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-1.5">
                 <div class="col-span-2">
                     <img @click="show(recipe.id)"
-                         :src="recipe.file_path"
+                         :src="recipe.file_path.startsWith('/Users') ? recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '/') : recipe.file_path.replace('public', 'storage')"
                          style="height: 350px;"
                          class="cursor-pointer object-cover"/>
                 </div>
@@ -69,11 +69,17 @@
             </div>
 
             <div class="flex">
-                <i class="fa-solid fa-message text-blue-300 text-2xl absolute -mt-12" v-if="recipe.comments.length > 0">{{
+                <i class="fa-solid fa-message text-blue-300 text-2xl absolute mt-8"
+                   v-if="recipe.comments.length > 0">{{
                         recipe.comments.length
                     }}</i>
                 <Ingredients :recipe="recipe"/>
-                <span @click="destroy(recipe.id)" class="cursor-pointer text-lg text-red-300"
+
+                <span @click="edit(recipe.id)" class="cursor-pointer text-2xl text-green-400 mx-4"
+                      v-if="$page.props.user.username === recipe.user.name || $page.props.auth.admin === 1"><i
+                    class=" fa-solid fa-pen"></i></span>
+
+                <span @click="destroy(recipe.id)" class="cursor-pointer text-2xl text-red-300"
                       v-if="$page.props.user.username === recipe.user.name || $page.props.auth.admin === 1"><i
                     class="fa-solid fa-trash-can"></i></span>
             </div>
@@ -132,6 +138,11 @@ export default {
         },
         show(id) {
             Inertia.get('/recipes/show', {
+                id: id
+            })
+        },
+        edit(id) {
+            Inertia.get(`/recipes/${id}/edit`, {
                 id: id
             })
         },

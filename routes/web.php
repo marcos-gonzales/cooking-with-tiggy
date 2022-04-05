@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/recipes/category/likes', [RecipeController::class, 'recipeLikes']);
     Route::get('/recipes/category/{category}', [RecipeController::class, 'recipesCategoryIndex']);
     Route::post('/recipes/{recipeId}/comment', [RecipeController::class, 'recipeComment']);
+    Route::get('/recipes/{commentId}/comment', [RecipeController::class, 'recipeCommentEdit']);
+    Route::post('/recipes/{recipeId}/update-comment/{commentId}', [RecipeController::class, 'recipeCommentUpdate']);
 
     Route::post('recipes/{recipeId}/vote', [RatingController::class, 'vote']);
 });

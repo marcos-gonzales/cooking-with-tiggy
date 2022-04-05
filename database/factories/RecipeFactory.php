@@ -19,11 +19,11 @@ class RecipeFactory extends Factory
     {
         $time = [5, 10, 15, 20, 25, 30, 45, 60];
         $this->faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($this->faker));
-        $user = User::find(random_int(1, 20));
+        $user = User::find(random_int(1, 60));
 
         return [
             'name' => $this->faker->foodName(),
-            'ingredients' => $this->faker->vegetableName(),
+            'ingredients' => $this->faker->vegetableName(), $this->faker->vegetableName(), $this->faker->vegetableName(),
             'estimated_time' => $time[random_int(0, 7)],
             'steps' => $this->faker->paragraph($nb = 3, $asText = false),
             'user_id' => $user->id,

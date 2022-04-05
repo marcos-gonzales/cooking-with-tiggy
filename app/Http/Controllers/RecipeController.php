@@ -98,7 +98,13 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = Recipe::findOrFail($id);
+
+        return Inertia::render('Recipes/Edit', [
+            'categories' => Category::with('recipes')->get(),
+            'user_id' => auth()->user()->id ?? null,
+            'recipe' => $recipe
+        ]);
     }
 
     /**
@@ -108,9 +114,23 @@ class RecipeController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $recipe = Recipe::find($id);
+
+        $input = Request::validate([
+            'name' => ['required', 'string'],
+            'ingredients' => ['required', 'string'],
+            'estimated_time' => ['required', 'integer'],
+            'steps' => ['required', 'string'],
+            'user_id' => ['required', 'integer'],
+            'category_id' => ['required', 'integer'],
+        ]);
+
+        $recipe->update($input);
+        $recipe->save();
+
+        return redirect('/')->with('success', 'recipe updated');
     }
 
     /**
@@ -153,8 +173,7 @@ class RecipeController extends Controller
         return Inertia::render('Recipes/Categories', ['recipes' => $recipes]);
     }
 
-    public
-    function recipeComment($recipeId)
+    public function recipeComment($recipeId)
     {
         Request::validate([
             'comment' => 'required|string'
@@ -171,6 +190,26 @@ class RecipeController extends Controller
 
         return redirect()->back()->with('success', 'comment posted');
     }
+
+    public function recipeCommentEdit($commentId)
+    {
+        $comment = Comment::find($commentId);
+
+        return Inertia::render('Comment/Edit', ['comment' => $comment]);
+    }
+
+    public function recipeCommentUpdate($recipeId, $commentId)
+    {
+        Request::validate([
+            'comment' => 'required|string',
+        ]);
+
+        $comment = Comment::find($commentId);
+        $comment->user_input = Request::get('comment');
+        $comment->save();
+        return redirect("/recipes")->with('success', 'comment updated');
+    }
+
 
     public
     function recipeLikes()

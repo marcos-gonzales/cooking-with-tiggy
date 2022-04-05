@@ -77,11 +77,15 @@
         </form>
 
     </div>
-    <div v-for="comment in recipe.comments" class="border grid grid-cols-5 my-2">
+    <div v-for="comment in recipe.comments" class="border grid grid-cols-6 my-2">
+        {{ comment }}
         <img
             :src="'http://localhost:8000/' + comment.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
             :alt="comment.user_id" class="inline object-cover w-12 h-12 mr-2 rounded-full cursor-pointer">
         <p class="col-span-3">{{ comment.user_input }}</p>
+        <span @click="commentEdit(comment.id)" class="cursor-pointer text-2xl text-green-400 mx-4"
+              v-if="$page.props.user.id === comment.user_id || $page.props.auth.admin === 1"><i
+            class=" fa-solid fa-pen"></i></span>
         <small class="justify-self-end">{{ moment(comment.created_at) }}</small>
     </div>
 
@@ -139,6 +143,11 @@ export default {
                 comment: this.comment
             });
         },
+        commentEdit(commentId) {
+            Inertia.get(`/recipes/${commentId}/comment`, {
+                commentId: commentId
+            });
+        }
     },
 }
 </script>

@@ -47,19 +47,19 @@
                         }}</span>
                     <img
                         @click="personIndex($event, recipe.user)"
-                        :src="'http://localhost:8000/' + recipe.user.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
+                        :src="'http://localhost:8000/' + recipe.user.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '/')"
                         class="inline object-cover w-12 h-12 mr-2 rounded-full cursor-pointer"
                     />
 
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-x-1.5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-1.5">
                 <div class="col-span-2">
                     <img @click="show(recipe.id)"
-                         :src="'http://localhost:8000/' + recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '')"
+                         :src="'http://localhost:8000/' + recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '/')"
                          style="height: 500px;"
                          class="cursor-pointer object-cover"/>
-                    <i class="fa-solid fa-message text-blue-300 text-2xl absolute -mt-12"
+                    <i class="fa-solid fa-message text-blue-300 text-2xl absolute mt-8"
                        v-if="recipe.comments.length > 0">{{
                             recipe.comments.length
                         }}</i>

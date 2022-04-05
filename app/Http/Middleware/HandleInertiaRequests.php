@@ -44,7 +44,8 @@ class HandleInertiaRequests extends Middleware
             'user' => [
                 'username' => auth()->user()->name ?? null,
                 'avatar' => auth()->user()->file_path ?? null,
-                'email' => auth()->user()->email ?? null
+                'email' => auth()->user()->email ?? null,
+                'id' => auth()->user()->id ?? null
             ],
             'auth' => [
                 'admin' => auth()->user()->is_admin ?? null
