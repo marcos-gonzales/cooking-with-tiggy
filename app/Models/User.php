@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'file_path'
+        'file_path',
+        'forgot_password_link',
+        'updated_at'
     ];
 
     /**

@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
             $table->string('file_path')->nullable();
+            $table->string('forgot_password_link')->nullable();
         });
     }
 

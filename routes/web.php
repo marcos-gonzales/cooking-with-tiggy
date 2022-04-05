@@ -11,6 +11,10 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'postRegister']);
+Route::get('/forgot-password/{emailToken}', [AuthController::class, 'forgotPasswordWithTokenGet']);
+Route::post('/forgot-password/{emailToken}', [AuthController::class, 'forgotPasswordWithToken']);
+Route::get('/forgot-password', [AuthController::class, 'forgotPasswordGet']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 

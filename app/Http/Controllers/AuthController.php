@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TestEmail;
+use App\Mail\ForgotPasswordEmail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -94,5 +95,54 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/login')->with('success', 'You have logged out');
+    }
+
+    public function forgotPasswordGet()
+    {
+        return Inertia::render('Auth/ForgotPassword');
+    }
+
+    public function forgotPassword()
+    {
+        $user = User::where('email', Request::input('email'))->first();
+        $link = Str::random(16);
+        $user->forgot_password_link = $link;
+        $user->updated_at = now()->addMinutes(30);
+        $user->save();
+        $data = ['message' => $link, 'email' => $user->email];
+
+        Mail::to($user->email)->send(new ForgotPasswordEmail($data));
+        return redirect()->back()->with('success', 'if there is an account with the email entered, follow the instructions listed in the email to reset your password.');
+
+    }
+
+    public function forgotPasswordWithTokenGet(string $token)
+    {
+        $user = User::where('forgot_password_link', $token)->first();
+
+        if ($user?->updated_at < now()) {
+            abort(403, 'Token expired! Please try again');
+        } else {
+            return Inertia::render('Auth/ResetPassword', ['token' => $token]);
+        }
+    }
+
+    public function forgotPasswordWithToken(string $token)
+    {
+        $user = User::where('forgot_password_link', $token)->first();
+
+        if ($user->updated_at < now()) {
+            abort(404, 'Token expired! Please try again');
+        } else {
+            Request::validate([
+                'password' => 'string'
+            ]);
+            $user->update([
+                'password' => bcrypt(Request::input('password')),
+                'forgot_password_link' => null
+            ]);
+            $user->save();
+            return redirect('/login')->with('success', 'password has been updated');
+        }
     }
 }

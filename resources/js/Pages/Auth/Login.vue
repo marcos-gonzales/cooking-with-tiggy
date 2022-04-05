@@ -43,6 +43,11 @@
                 Don't have an account?
                 <Link class="text-blue-500 underline" href="/register">Register</Link>
             </p>
+
+            <p class="text-center text-slate-300 pb-4 mt-10">
+                forgot your password?
+                <Link class="text-blue-500 underline" href="/forgot-password">reset password</Link>
+            </p>
         </div>
     </div>
 </template>
