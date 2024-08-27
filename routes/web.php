@@ -6,6 +6,20 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('email/verify', [AuthController::class, 'showVerifyEmail'])
+    ->middleware('auth')
+    ->name('verification.notice'); // <-- don't change the route name
+
+
+Route::post('/verify-email/request', [AuthController::class, 'request'])
+    ->middleware('auth')
+    ->name('verification.request');
+
+
+Route::post('/verify-email/{id}/{hash}', [AuthController::class, 'verify'])
+    ->middleware(['auth', 'signed']) // <-- don't remove "signed"
+    ->name('verification.verify'); // <-- don't change the route name
+
 // Auth Routes--------------------
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
@@ -18,9 +32,9 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::middleware('auth')->group(function () {
-    Route::resource('users', UserController::class);
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('recipes', RecipeController::class);
+    Route::resource('users', UserController::class);
 
     Route::get('/recipes/{userId}/index', [RecipeController::class, 'recipeUserIndex']);
     Route::get('/recipes/category/likes', [RecipeController::class, 'recipeLikes']);
@@ -31,6 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('recipes/{recipeId}/vote', [RatingController::class, 'vote']);
 });
+
 
 
 Route::get('/recipes', [RecipeController::class, 'index']);

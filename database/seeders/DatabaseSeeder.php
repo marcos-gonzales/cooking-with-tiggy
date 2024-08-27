@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(50)->create();
+        User::create([
+            'email' => 'marcos@example.org',
+            'name' => 'Marcos Gonzales',
+            'password' => bcrypt('password')
+        ]);
+
+        User::factory(15)->create();
         Category::create(['name' => 'Italian']);
         Category::create(['name' => 'American']);
         Category::create(['name' => 'Mexican']);
@@ -25,5 +30,8 @@ class DatabaseSeeder extends Seeder
         Category::create(['name' => 'Chinese']);
         Category::create(['name' => 'BBQ']);
         Category::create(['name' => 'Indian']);
+
+        $this->call(RecipeSeeder::class);
+        
     }
 }

@@ -23,7 +23,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
-            'file_path' => public_path('images/avatars/avatar' . random_int(1, 12) . '.jpg'),
+            'file_path' => 'images/avatars/avatar' . random_int(1, 12) . '.jpg',
+            
         ];
     }
 

@@ -17,18 +17,20 @@ class RecipeFactory extends Factory
      */
     public function definition()
     {
-        $time = [5, 10, 15, 20, 25, 30, 45, 60];
+        $time = ['5', '10', '15', '20', '25', '30', '45', '60'];
+        $randomTime = $time[array_rand($time)];
         $this->faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($this->faker));
-        $user = User::find(random_int(1, 60));
+        $user = User::find(random_int(1, 15));
 
         return [
             'name' => $this->faker->foodName(),
-            'ingredients' => $this->faker->vegetableName(), $this->faker->vegetableName(), $this->faker->vegetableName(),
-            'estimated_time' => $time[random_int(0, 7)],
+            'ingredients' => $this->faker->vegetableName(),
+            'estimated_time' => $randomTime,
             'steps' => $this->faker->paragraph($nb = 3, $asText = false),
             'user_id' => $user->id,
-            'file_path' => public_path('images/foods/food' . random_int(1, 13) . '.jpg'),
-            'category_id' => random_int(1, 8),
+            'category_id' => random_int(1,2),
+            'file_path' => 'images/foods/food' . random_int(1, 13) . '.jpg',
+            'created_at' => $this->faker->dateTimeBetween('-2 years')
         ];
     }
 }

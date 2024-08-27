@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -85,7 +87,8 @@ class AuthController extends Controller
             }
             $data = ['message' => 'and don\'t forget to say hi to tiggy! Meoww'];
 
-            Mail::to($user->email)->send(new TestEmail($data));
+//            Mail::to($user->email)->send(new TestEmail($data));
+            event(new Registered($user));
             auth()->attempt(['email' => $request['email'], 'password' => $request['password']]);
             return redirect('/recipes')->with('success', 'you have registered.');
         }
@@ -110,10 +113,8 @@ class AuthController extends Controller
         $user->updated_at = now()->addMinutes(30);
         $user->save();
         $data = ['message' => $link, 'email' => $user->email];
-
         Mail::to($user->email)->send(new ForgotPasswordEmail($data));
         return redirect()->back()->with('success', 'if there is an account with the email entered, follow the instructions listed in the email to reset your password.');
-
     }
 
     public function forgotPasswordWithTokenGet(string $token)
@@ -144,5 +145,25 @@ class AuthController extends Controller
             $user->save();
             return redirect('/login')->with('success', 'password has been updated');
         }
+    }
+
+    public function showVerifyEmail()
+    {
+        return view('auth.verify-email');
+    }
+
+    public function request()
+    {
+        auth()->user()->sendEmailVerificationNotification();
+
+        return back()
+            ->with('success', 'Verification link sent!');
+    }
+
+    public function verify(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+
+        return redirect()->to('/');
     }
 }

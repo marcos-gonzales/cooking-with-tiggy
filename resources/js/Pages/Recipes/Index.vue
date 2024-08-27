@@ -59,7 +59,7 @@
                     <img @click="show(recipe.id)"
                          :src="recipe.file_path.startsWith('/Users') ? recipe.file_path.replace('/Users/marcosgonzales/Desktop/projects/inertia/public/', '/') : recipe.file_path.replace('public', 'storage')"
                          style="height: 350px;"
-                         class="cursor-pointer object-cover"/>
+                         class="cursor-pointer object-cover w-full"/>
                 </div>
                 <div class="col-span-1">
                     <p class="my-4">{{
@@ -69,10 +69,6 @@
             </div>
 
             <div class="flex">
-                <i class="fa-solid fa-message text-blue-300 text-2xl absolute mt-8"
-                   v-if="recipe.comments.length > 0">{{
-                        recipe.comments.length
-                    }}</i>
                 <Ingredients :recipe="recipe"/>
 
                 <span @click="edit(recipe.id)" class="cursor-pointer text-2xl text-green-400 mx-4"
@@ -85,7 +81,6 @@
             </div>
 
             <Rating :recipe="recipe"/>
-
         </div>
 
         <div v-if="recipes.links.length">

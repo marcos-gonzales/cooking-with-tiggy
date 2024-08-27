@@ -1,7 +1,6 @@
 <template>
     <div class="border rounded bg-slate-100 w-full">
-        <h2 class="text-center text-amber-300">If we find an account with your email we'll send you a reset password
-            link</h2>
+        <h2 class="text-center text-amber-300">If we find an account with your email we'll send you a reset password link</h2>
         <small class="text-blue-300 text-center block mt-2">The link will expire in 30 minutes... better get to
             it..<i class="fa-solid fa-truck-fast"></i></small>
         <form
@@ -39,8 +38,8 @@ export default {
     methods: {
         resetPassword() {
             Inertia.post(`/forgot-password`, {
-                email: email
-            })
+                email: this.email
+            });
         }
     },
     props: {

@@ -67,7 +67,7 @@
             </div>
 
             <div class="flex flex-col p-2">
-                <input type="file" name="file_path" @change="fileUpload" disabled/>
+                <input type="file" name="file_path" @change="fileUpload"/>
             </div>
 
             <button
@@ -140,7 +140,7 @@ export default {
     methods: {
         submit(id, event) {
             event.preventDefault();
-            Inertia.patch(`/recipes/${id}`, {
+            Inertia.put(`/recipes/${id}`, {
                 name: this.recipe.name,
                 ingredients: this.recipe.ingredients,
                 steps: this.recipe.steps,
@@ -154,6 +154,7 @@ export default {
             this.categoryId = event.target.value;
         },
         fileUpload(event) {
+            console.log(event.target.files[0]);
             this.recipe.file_path = event.target.files[0];
         },
     },

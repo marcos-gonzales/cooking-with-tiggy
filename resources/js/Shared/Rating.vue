@@ -1,5 +1,7 @@
 <template>
-    <div class="border-t flex justify-evenly">
+    <div class="border-t grid justify-items-center" :class="recipe.comments.length > 0 ? 'grid-cols-3' : 'grid-cols-2'">
+        <i v-if="recipe.comments.length > 0" @click="show(recipe.id)" class="fa-solid fa-message text-blue-300 text-2xl cursor-pointer"
+                   >{{recipe.comments.length}}</i>
         <div class="text-sky-300 text-3xl">
             {{ recipe.ratings.reduce((acc, currVal) => acc + currVal.up_vote, 0) }}
             <i @click="thumbsUp(recipe.id, $page.props.user.email)"
@@ -36,6 +38,11 @@ export default {
                 down_vote: true,
                 email: email
             }, {preserveScroll: true});
+        },
+        show(id) {
+            Inertia.get('/recipes/show', {
+                id: id
+            })
         },
     }
 }

@@ -117,7 +117,6 @@ class RecipeController extends Controller
     public function update($id)
     {
         $recipe = Recipe::find($id);
-
         $input = Request::validate([
             'name' => ['required', 'string'],
             'ingredients' => ['required', 'string'],
